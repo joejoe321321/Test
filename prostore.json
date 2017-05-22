@@ -1,0 +1,1489 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "The StreamAPI API",
+        "version": "1"
+    },
+    "basePath": "/api/StreamAPI/v1",
+    "schemes": [],
+    "paths": {
+        "/stream": {
+            "get": {
+                "tags": [
+                    "StreamResponse"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "property",
+                        "in": "query",
+                        "schema": {
+                            "$ref": "#/definitions/Property"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "ccode",
+                        "in": "query",
+                        "schema": {
+                            "$ref": "#/definitions/Country"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "contentTypes",
+                        "in": "query",
+                        "type": "string",
+                        "description": "A string of comma-separated content types",
+                        "required": false
+                    },
+                    {
+                        "name": "contentSubTypes",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Comma-separated string",
+                        "required": false
+                    },
+                    {
+                        "name": "tags",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Comma-separated string",
+                        "required": false
+                    },
+                    {
+                        "name": "l1Categories",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Comma-separated string",
+                        "required": false
+                    },
+                    {
+                        "name": "l2Categories",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Comma-separated string",
+                        "required": false
+                    },
+                    {
+                        "name": "l3Categories",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Comma-separated string",
+                        "required": false
+                    },
+                    {
+                        "name": "storeIds",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Comma-separated string",
+                        "required": false
+                    },
+                    {
+                        "name": "sortBy",
+                        "in": "query",
+                        "schema": {
+                            "$ref": "#/definitions/SortBy"
+                        },
+                        "description": "the field that you want to sort by",
+                        "required": false
+                    },
+                    {
+                        "name": "sortOrder",
+                        "in": "query",
+                        "schema": {
+                            "$ref": "#/definitions/SortOrder"
+                        },
+                        "description": "Defaults to ASC",
+                        "required": false,
+                        "default": "ASC"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "Defaults to 0",
+                        "required": false,
+                        "default": 0
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "type": "integer",
+                        "format": "int32",
+                        "required": false,
+                        "default": 20
+                    },
+                    {
+                        "name": "startBefore",
+                        "in": "query",
+                        "type": "string",
+                        "description": "ISO 8601 datetime string",
+                        "required": false
+                    },
+                    {
+                        "name": "endAfter",
+                        "in": "query",
+                        "type": "string",
+                        "description": "ISO 8601 datetime string",
+                        "required": false
+                    },
+                    {
+                        "name": "minPromotionValue",
+                        "in": "query",
+                        "type": "number",
+                        "format": "double",
+                        "required": false
+                    },
+                    {
+                        "name": "maxPromotionValue",
+                        "in": "query",
+                        "type": "number",
+                        "format": "double",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/StreamResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    }
+                }
+            }
+        },
+        "/stream/ecoupon/{property}/{ccode}/{eCouponId}": {
+            "delete": {
+                "tags": [
+                    "ECoupon"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "property",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Property"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "ccode",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Country"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "eCouponId",
+                        "in": "path",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ECoupon"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "SimplePutResponse"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "property",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Property"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "ccode",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Country"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "eCouponId",
+                        "in": "path",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "eCoupon",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/ECoupon"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/SimplePutResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    }
+                }
+            }
+        },
+        "/stream/newProducts/{property}/{ccode}/{storeId}": {
+            "delete": {
+                "tags": [
+                    "NewProducts"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "property",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Property"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "ccode",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Country"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "storeId",
+                        "in": "path",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/NewProducts"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "SimplePutResponse"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "property",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Property"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "ccode",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Country"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "storeId",
+                        "in": "path",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "products",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/NewProducts"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/SimplePutResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    }
+                }
+            }
+        },
+        "/stream/pointEvent/{property}/{ccode}/{pointEventId}": {
+            "delete": {
+                "tags": [
+                    "PointEvent"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "property",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Property"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "ccode",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Country"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "pointEventId",
+                        "in": "path",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/PointEvent"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "SimplePutResponse"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "property",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Property"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "ccode",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Country"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "pointEventId",
+                        "in": "path",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "pointEvent",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/PointEvent"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/SimplePutResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    }
+                }
+            }
+        },
+        "/stream/promotion/{property}/{ccode}/{promotionId}": {
+            "delete": {
+                "tags": [
+                    "Promotion"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "property",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Property"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "ccode",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Country"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "promotionId",
+                        "in": "path",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Promotion"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "SimplePutResponse"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "property",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Property"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "ccode",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Country"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "promotionId",
+                        "in": "path",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "promotion",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Promotion"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/SimplePutResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    }
+                }
+            }
+        },
+        "/stream/trendingProducts/{property}/{ccode}/{storeId}": {
+            "delete": {
+                "tags": [
+                    "TrendingProducts"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "property",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Property"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "ccode",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Country"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "storeId",
+                        "in": "path",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/TrendingProducts"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "SimplePutResponse"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "property",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Property"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "ccode",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Country"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "storeId",
+                        "in": "path",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "products",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/TrendingProducts"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/SimplePutResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Country": {
+            "enum": [
+                "tw",
+                "hk"
+            ]
+        },
+        "ECoupon": {
+            "properties": {
+                "activityEndTime": {
+                    "type": "string",
+                    "example": ""
+                },
+                "activityId": {
+                    "type": "string",
+                    "example": ""
+                },
+                "activityStartTime": {
+                    "type": "string",
+                    "example": ""
+                },
+                "createdTime": {
+                    "type": "string",
+                    "example": ""
+                },
+                "description": {
+                    "type": "string",
+                    "example": ""
+                },
+                "imageUrl": {
+                    "type": "string",
+                    "example": ""
+                },
+                "l1Categories": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/WeightedSet"
+                    }
+                },
+                "l2Categories": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/WeightedSet"
+                    }
+                },
+                "l3Categories": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/WeightedSet"
+                    }
+                },
+                "link": {
+                    "type": "string",
+                    "example": ""
+                },
+                "money": {
+                    "type": "_Float64_",
+                    "example": ""
+                },
+                "shoppingPrice": {
+                    "type": "_Float64_",
+                    "example": ""
+                },
+                "storeId": {
+                    "type": "string",
+                    "example": ""
+                },
+                "subType": {
+                    "type": "string",
+                    "example": ""
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "example": ""
+                    }
+                },
+                "title": {
+                    "type": "string",
+                    "example": ""
+                },
+                "updatedTime": {
+                    "type": "string",
+                    "example": ""
+                },
+                "validityEndTime": {
+                    "type": "string",
+                    "example": ""
+                },
+                "validityStartTime": {
+                    "type": "string",
+                    "example": ""
+                }
+            },
+            "required": [
+                "title",
+                "activityId",
+                "storeId",
+                "imageUrl",
+                "createdTime",
+                "updatedTime",
+                "activityStartTime",
+                "activityEndTime",
+                "validityStartTime",
+                "validityEndTime",
+                "description",
+                "money",
+                "shoppingPrice",
+                "subType",
+                "link",
+                "l1Categories",
+                "l2Categories",
+                "l3Categories",
+                "tags"
+            ]
+        },
+        "NewProducts": {
+            "properties": {
+                "l1Categories": {
+                    "type": "array",
+                    "description": "Tag style fields",
+                    "items": {
+                        "$ref": "#/definitions/WeightedSet"
+                    }
+                },
+                "l2Categories": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/WeightedSet"
+                    }
+                },
+                "l3Categories": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/WeightedSet"
+                    }
+                },
+                "link": {
+                    "type": "string",
+                    "example": ""
+                },
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Product"
+                    }
+                },
+                "startTime": {
+                    "type": "string",
+                    "example": ""
+                },
+                "storeId": {
+                    "type": "string",
+                    "example": ""
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "example": ""
+                    }
+                }
+            },
+            "required": [
+                "storeId",
+                "products",
+                "startTime",
+                "link",
+                "l1Categories",
+                "l2Categories",
+                "l3Categories",
+                "tags"
+            ]
+        },
+        "NullStruct": {
+            "description": "For debug :)"
+        },
+        "ParsecErrorBody": {
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "detail": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ParsecErrorDetail"
+                    }
+                },
+                "message": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "message"
+            ]
+        },
+        "ParsecErrorDetail": {
+            "properties": {
+                "invalidValue": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "message"
+            ]
+        },
+        "ParsecResourceError": {
+            "properties": {
+                "error": {
+                    "$ref": "#/definitions/ParsecErrorBody"
+                }
+            },
+            "required": [
+                "error"
+            ]
+        },
+        "PointEvent": {
+            "properties": {
+                "Status": {
+                    "type": "string",
+                    "example": ""
+                },
+                "activityEndTime": {
+                    "type": "string",
+                    "example": ""
+                },
+                "activityId": {
+                    "type": "string",
+                    "example": ""
+                },
+                "activityStartTime": {
+                    "type": "string",
+                    "example": ""
+                },
+                "createdTime": {
+                    "type": "string",
+                    "example": ""
+                },
+                "imageUrl": {
+                    "type": "string",
+                    "example": ""
+                },
+                "l1Categories": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/WeightedSet"
+                    }
+                },
+                "l2Categories": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/WeightedSet"
+                    }
+                },
+                "l3Categories": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/WeightedSet"
+                    }
+                },
+                "link": {
+                    "type": "string",
+                    "example": ""
+                },
+                "rule": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": ""
+                },
+                "storeId": {
+                    "type": "string",
+                    "example": ""
+                },
+                "subType": {
+                    "type": "string",
+                    "example": ""
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "example": ""
+                    }
+                },
+                "title": {
+                    "type": "string",
+                    "example": ""
+                },
+                "updatedTime": {
+                    "type": "string",
+                    "example": ""
+                }
+            },
+            "required": [
+                "storeId",
+                "title",
+                "activityId",
+                "activityStartTime",
+                "activityEndTime",
+                "createdTime",
+                "updatedTime",
+                "subType",
+                "imageUrl",
+                "Status",
+                "link",
+                "rule",
+                "l1Categories",
+                "l2Categories",
+                "l3Categories",
+                "tags"
+            ]
+        },
+        "Product": {
+            "properties": {
+                "largeMainImageUrl": {
+                    "type": "string",
+                    "example": ""
+                },
+                "link": {
+                    "type": "string",
+                    "example": ""
+                },
+                "price": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": ""
+                },
+                "productId": {
+                    "type": "string",
+                    "example": ""
+                },
+                "productName": {
+                    "type": "string",
+                    "example": ""
+                },
+                "rating": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": ""
+                },
+                "ratingCount": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": ""
+                },
+                "saleRank": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": ""
+                }
+            },
+            "required": [
+                "productId",
+                "productName",
+                "largeMainImageUrl",
+                "price",
+                "saleRank",
+                "link",
+                "rating",
+                "ratingCount"
+            ]
+        },
+        "Promotion": {
+            "properties": {
+                "aggregateType": {
+                    "type": "string",
+                    "example": ""
+                },
+                "audienceType": {
+                    "type": "string",
+                    "example": ""
+                },
+                "createdTime": {
+                    "type": "string",
+                    "example": ""
+                },
+                "description": {
+                    "type": "string",
+                    "example": ""
+                },
+                "endTime": {
+                    "type": "string",
+                    "example": ""
+                },
+                "groupType": {
+                    "type": "string",
+                    "example": ""
+                },
+                "isWithPreviousConstrain": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": ""
+                },
+                "l1Categories": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/WeightedSet"
+                    }
+                },
+                "l2Categories": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/WeightedSet"
+                    }
+                },
+                "l3Categories": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/WeightedSet"
+                    }
+                },
+                "link": {
+                    "type": "string",
+                    "example": ""
+                },
+                "presentType": {
+                    "type": "string",
+                    "example": ""
+                },
+                "productLinkType": {
+                    "type": "string",
+                    "example": ""
+                },
+                "promotionActPic": {
+                    "type": "string",
+                    "example": ""
+                },
+                "promotionDetailString": {
+                    "type": "string",
+                    "example": ""
+                },
+                "promotionId": {
+                    "type": "string",
+                    "example": ""
+                },
+                "promotionPic": {
+                    "type": "string",
+                    "example": ""
+                },
+                "promotionShortString": {
+                    "type": "string",
+                    "example": ""
+                },
+                "promotionType": {
+                    "type": "string",
+                    "example": ""
+                },
+                "promotionValue": {
+                    "type": "_Float64_",
+                    "example": ""
+                },
+                "startTime": {
+                    "type": "string",
+                    "example": ""
+                },
+                "status": {
+                    "type": "string",
+                    "example": ""
+                },
+                "storeId": {
+                    "type": "string",
+                    "example": ""
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "example": ""
+                    }
+                },
+                "title": {
+                    "type": "string",
+                    "example": ""
+                },
+                "updatedTime": {
+                    "type": "string",
+                    "example": ""
+                }
+            },
+            "required": [
+                "storeId",
+                "title",
+                "description",
+                "startTime",
+                "endTime",
+                "createdTime",
+                "updatedTime",
+                "promotionId",
+                "isWithPreviousConstrain",
+                "promotionType",
+                "status",
+                "aggregateType",
+                "presentType",
+                "groupType",
+                "productLinkType",
+                "audienceType",
+                "link",
+                "promotionPic",
+                "promotionActPic",
+                "promotionDetailString",
+                "promotionShortString",
+                "promotionValue",
+                "l1Categories",
+                "l2Categories",
+                "l3Categories",
+                "tags"
+            ]
+        },
+        "Property": {
+            "enum": [
+                "none",
+                "auction",
+                "splus",
+                "mall",
+                "auction2",
+                "shopping",
+                "twbigdeal",
+                "hkauctions",
+                "hkdeals",
+                "hkbrandstore"
+            ]
+        },
+        "ResourceError": {
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "code",
+                "message"
+            ]
+        },
+        "SimplePutResponse": {
+            "properties": {
+                "documentId": {
+                    "type": "string",
+                    "example": ""
+                }
+            },
+            "required": [
+                "documentId"
+            ]
+        },
+        "SortBy": {
+            "enum": [
+                "popularity",
+                "promotionValue",
+                "startTime",
+                "endTime",
+                "createdTime",
+                "updatedTime"
+            ]
+        },
+        "SortOrder": {
+            "enum": [
+                "ASC",
+                "DESC"
+            ]
+        },
+        "StreamItem": {
+            "properties": {
+                "contentId": {
+                    "type": "string",
+                    "example": ""
+                },
+                "contentSubType": {
+                    "type": "string",
+                    "example": ""
+                },
+                "contentType": {
+                    "type": "_StreamType_",
+                    "example": ""
+                },
+                "eCoupon": {
+                    "$ref": "#/definitions/ECoupon"
+                },
+                "newProducts": {
+                    "$ref": "#/definitions/NewProducts"
+                },
+                "pointEvent": {
+                    "$ref": "#/definitions/PointEvent"
+                },
+                "promotion": {
+                    "$ref": "#/definitions/Promotion"
+                },
+                "trendingProducts": {
+                    "$ref": "#/definitions/TrendingProducts"
+                }
+            },
+            "required": [
+                "contentId",
+                "contentType",
+                "contentSubType",
+                "promotion",
+                "eCoupon",
+                "pointEvent",
+                "trendingProducts",
+                "newProducts"
+            ]
+        },
+        "StreamResponse": {
+            "properties": {
+                "nextOffset": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": ""
+                },
+                "streamItems": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/StreamItem"
+                    }
+                },
+                "totalCount": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": ""
+                }
+            },
+            "required": [
+                "totalCount",
+                "streamItems"
+            ]
+        },
+        "StreamType": {
+            "enum": [
+                "ECOUPON",
+                "PROMOTION",
+                "POINTS_EVENT",
+                "NEW_PRODUCTS",
+                "TRENDING_PRODUCTS",
+                "TOP_REVIEWS"
+            ]
+        },
+        "TrendingProducts": {
+            "properties": {
+                "l1Categories": {
+                    "type": "array",
+                    "description": "Tag style fields",
+                    "items": {
+                        "$ref": "#/definitions/WeightedSet"
+                    }
+                },
+                "l2Categories": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/WeightedSet"
+                    }
+                },
+                "l3Categories": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/WeightedSet"
+                    }
+                },
+                "link": {
+                    "type": "string",
+                    "example": ""
+                },
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Product"
+                    }
+                },
+                "startTime": {
+                    "type": "string",
+                    "example": ""
+                },
+                "storeId": {
+                    "type": "string",
+                    "example": ""
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "example": ""
+                    }
+                }
+            },
+            "required": [
+                "storeId",
+                "products",
+                "startTime",
+                "link",
+                "l1Categories",
+                "l2Categories",
+                "l3Categories",
+                "tags"
+            ]
+        },
+        "WeightedSet": {
+            "properties": {
+                "label": {
+                    "type": "string",
+                    "example": ""
+                },
+                "weight": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": ""
+                }
+            },
+            "required": [
+                "label",
+                "weight"
+            ]
+        }
+    }
+}

@@ -152,7 +152,7 @@
                     }
                 },
                 "property": {
-                    "type": "_Property_",
+                    "$ref": "#/definitions/Property",
                     "description": "The orderId is unique only within a property."
                 },
                 "recommendFuture": {

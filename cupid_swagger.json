@@ -152,7 +152,7 @@
                     "type": "array",
                     "items": {
                         "type": "bool",
-                        "example": [false, true]
+                        "example": false
                     }
                 },
                 "userId": {

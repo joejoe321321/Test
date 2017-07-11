@@ -113,6 +113,7 @@
             ]
         },
         "Property": {
+            "type": "string",
             "enum": [
                 "AUCTION",
                 "MALL",

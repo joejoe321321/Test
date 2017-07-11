@@ -1,0 +1,197 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "The cupid API",
+        "version": "1"
+    },
+    "basePath": "/cupid/v1",
+    "schemes": [],
+    "paths": {
+        "/recommend": {
+            "get": {
+                "tags": [
+                    "RecommendResponse"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/RecommendResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ResourceError"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Order": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "This id is not used during recommendation. However, when coupons are being redeemed, this id with property_id must be unique among all orders since it can later be used to return the redeemed coupons in this order.",
+                    "example": ""
+                }
+            },
+            "required": [
+                "name"
+            ]
+        },
+        "ParsecErrorBody": {
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "detail": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ParsecErrorDetail"
+                    }
+                },
+                "message": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "message"
+            ]
+        },
+        "ParsecErrorDetail": {
+            "properties": {
+                "invalidValue": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "message"
+            ]
+        },
+        "ParsecResourceError": {
+            "properties": {
+                "error": {
+                    "$ref": "#/definitions/ParsecErrorBody"
+                }
+            },
+            "required": [
+                "error"
+            ]
+        },
+        "Property": {
+            "enum": [
+                "AUCTION",
+                "MALL",
+                "SHOPPING",
+                "NEVEC"
+            ]
+        },
+        "RecommendResponse": {
+            "properties": {
+                "order": {
+                    "description": "All the lines in the order.",
+                    "$ref": "#/definitions/Order"
+                },
+                "orders": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Order"
+                    }
+                },
+                "properties": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Property"
+                    }
+                },
+                "property": {
+                    "type": "_Property_",
+                    "description": "The orderId is unique only within a property.",
+                    "example": ""
+                },
+                "recommendFuture": {
+                    "type": "_Bool_",
+                    "description": "if recommendFuture is true, then we recommend those not yet started campaigns too",
+                    "example": ""
+                },
+                "recommendFutures": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Bool"
+                    }
+                },
+                "userId": {
+                    "type": "string",
+                    "description": "The user id or absent if the user id is not known.",
+                    "example": ""
+                },
+                "userIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "example": ""
+                    }
+                }
+            },
+            "required": [
+                "property",
+                "properties",
+                "userId",
+                "userIds",
+                "order",
+                "orders",
+                "recommendFuture",
+                "recommendFutures"
+            ]
+        },
+        "ResourceError": {
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "code",
+                "message"
+            ]
+        }
+    }
+}

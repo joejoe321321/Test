@@ -153,8 +153,7 @@
                 },
                 "property": {
                     "type": "_Property_",
-                    "description": "The orderId is unique only within a property.",
-                    "example": "NEVEC"
+                    "description": "The orderId is unique only within a property."
                 },
                 "recommendFuture": {
                     "type": "bool",

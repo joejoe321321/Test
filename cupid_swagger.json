@@ -122,6 +122,19 @@
         },
         "RecommendResponse": {
             "properties": {
+                "num": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": "123"
+                },
+                "nums": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "format": "int32",
+                        "example": ""
+                    }
+                },
                 "order": {
                     "description": "All the lines in the order.",
                     "$ref": "#/definitions/Order"

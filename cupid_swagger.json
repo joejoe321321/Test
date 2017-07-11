@@ -136,11 +136,13 @@
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/Property"
-                    }
+                    },
+                    "example": [ "NEVEC", "MALL" ]
                 },
                 "property": {
                     "type": "_Property_",
-                    "description": "The orderId is unique only within a property."
+                    "description": "The orderId is unique only within a property.",
+                    "example": "NEVEC"
                 },
                 "recommendFuture": {
                     "type": "bool",

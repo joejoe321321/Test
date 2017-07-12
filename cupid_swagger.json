@@ -126,19 +126,18 @@
                 "num": {
                     "type": "integer",
                     "format": "int32",
-                    "example": 123
+                    "example": 0
                 },
                 "nums": {
                     "type": "array",
                     "items": {
                         "type": "integer",
                         "format": "int32",
-                        "example": 123
+                        "example": 0
                     }
                 },
                 "order": {
-                    "description": "All the lines in the order.",
-                    "$ref": "#/definitions/Order"
+                    "description": "All the lines in the order."
                 },
                 "orders": {
                     "type": "array",
@@ -153,8 +152,8 @@
                     }
                 },
                 "property": {
-                    "$ref": "#/definitions/Property",
-                    "description": "The orderId is unique only within a property."
+                    "description": "The orderId is unique only within a property.",
+                    "$ref": "#/definitions/Property"
                 },
                 "recommendFuture": {
                     "type": "bool",

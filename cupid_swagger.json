@@ -137,7 +137,8 @@
                     }
                 },
                 "order": {
-                    "description": "All the lines in the order."
+                    "description": "All the lines in the order.",
+                    "$ref": "#/definitions/Order"
                 },
                 "orders": {
                     "type": "array",

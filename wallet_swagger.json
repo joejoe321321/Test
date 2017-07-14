@@ -10,7 +10,7 @@
         "/wallet": {
             "post": {
                 "tags": [
-                    "int32"
+                    "string"
                 ],
                 "consumes": [
                     "application/json"

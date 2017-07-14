@@ -30,7 +30,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/string"
+                            "type": "string"
                         }
                     },
                     "400": {
@@ -62,17 +62,6 @@
         }
     },
     "definitions": {
-        "Fruit": {
-            "properties": {
-                "name": {
-                    "type": "string",
-                    "example": ""
-                }
-            },
-            "required": [
-                "name"
-            ]
-        },
         "ParsecErrorBody": {
             "properties": {
                 "code": {

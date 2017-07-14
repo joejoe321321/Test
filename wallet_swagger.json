@@ -10,7 +10,7 @@
         "/wallet": {
             "post": {
                 "tags": [
-                    "string"
+                    "int32"
                 ],
                 "consumes": [
                     "application/json"
@@ -30,7 +30,8 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "string"
+                            "type": "integer",
+                            "format": "int32"
                         }
                     },
                     "400": {

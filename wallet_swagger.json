@@ -29,10 +29,7 @@
                 "responses": {
                     "200": {
                         "description": "OK",
-                        "schema": {
-                            "type": "integer",
-                            "format": "int32"
-                        }
+                        "type": "string"
                     },
                     "400": {
                         "description": "Bad Request",

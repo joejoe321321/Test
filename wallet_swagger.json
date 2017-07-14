@@ -30,7 +30,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/string"
+                            "type": "string"
                         }
                     },
                     "400": {

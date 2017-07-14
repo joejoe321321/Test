@@ -29,7 +29,9 @@
                 "responses": {
                     "200": {
                         "description": "OK",
-                        "type": "string"
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     "400": {
                         "description": "Bad Request",

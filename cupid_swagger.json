@@ -24,14 +24,13 @@
                     },
                     {
                         "name": "flag",
-                        "in": "body",
-                        "type": "bool",
-                        "format": "bool",
+                        "in": "query",
+                        "type": "boolean",
                         "required": true
                     },
                     {
                         "name": "quantity",
-                        "in": "body",
+                        "in": "query",
                         "type": "integer",
                         "format": "int32",
                         "required": true

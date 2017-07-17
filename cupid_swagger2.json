@@ -1,0 +1,2606 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "The cupid API",
+        "version": "1"
+    },
+    "basePath": "/cupid/v1",
+    "schemes": [],
+    "paths": {
+        "/campaigns": {
+            "get": {
+                "tags": [
+                    "CampaignsResponse"
+                ],
+                "summary": "Returns a list of campaigns and filtered by the parameters. Only campaigns that match all the filter criteria are returned. If no filters are specified, all campaigns are returned in reverse chronological order by createdTs.",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "property",
+                        "in": "query",
+                        "schema": {
+                            "$ref": "#/definitions/Property"
+                        },
+                        "description": "The property of returned campaigns must match the specified property.",
+                        "required": true
+                    },
+                    {
+                        "name": "createdUserIds",
+                        "in": "query",
+                        "type": "string",
+                        "description": "The create user id(s) of returned campaigns must match any of the ids in this comma-separated list.",
+                        "required": false
+                    },
+                    {
+                        "name": "createdStoreIds",
+                        "in": "query",
+                        "type": "string",
+                        "description": "The create store id(s) of returned campaigns must match this value.",
+                        "required": false
+                    },
+                    {
+                        "name": "ids",
+                        "in": "query",
+                        "type": "string",
+                        "description": "a list of campaign id(s).",
+                        "required": false
+                    },
+                    {
+                        "name": "participantStoreIds",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Any of the participant store ids of returned campaigns must match one of the specified store ids in this comma-separated list. ALL_STORES campaign will always be matched. If ALL_STORES is given here only ALL_STORES campaign will be matched",
+                        "required": false
+                    },
+                    {
+                        "name": "titleKeywords",
+                        "in": "query",
+                        "type": "string",
+                        "description": "The keyword to search (%LIKE% operation) at field title. The default is null.",
+                        "required": false
+                    },
+                    {
+                        "name": "userTags",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Any of the user tags of returned campaigns must match one of the specified user tags.",
+                        "required": false
+                    },
+                    {
+                        "name": "deviceTags",
+                        "in": "query",
+                        "type": "string",
+                        "description": "The device tags of returned campaigns must match any of the tags in this comma-separated list.",
+                        "required": false
+                    },
+                    {
+                        "name": "acquireStartTs",
+                        "in": "query",
+                        "type": "string",
+                        "description": "The acquire start period of returned campaigns must fall in the specified range. The date format is ISO 8601, e.g. 2017-03-15. To match dates on and after a particular date, use X~. To match dates on and before a particular date, use ~X. To match dates within a range (inclusive), use X~Y.",
+                        "required": false
+                    },
+                    {
+                        "name": "acquireEndTs",
+                        "in": "query",
+                        "type": "string",
+                        "description": "The acquire end period of returned campaigns must fall in the specified range.",
+                        "required": false
+                    },
+                    {
+                        "name": "acquireStoppedTs",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Supports time range query as acquireStartTs format. Also supports: \"ALL\": results with both never stopped or has been stopped. \"STOPPED\": results with only stopped acquire campaigns. \"NOT_STOPPED\": results with only never stopped (means normal) acquire campaigns.",
+                        "required": false
+                    },
+                    {
+                        "name": "redeemStartTs",
+                        "in": "query",
+                        "type": "string",
+                        "description": "The redeem start period of returned campaigns must fall in the specified range. See acquireStartTs for format details.",
+                        "required": false
+                    },
+                    {
+                        "name": "redeemEndTs",
+                        "in": "query",
+                        "type": "string",
+                        "description": "The redeem end period of returned campaigns must fall in the specified range. See acquireStartTs for format details.",
+                        "required": false
+                    },
+                    {
+                        "name": "redeemStoppedTs",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Supports time range query as acquireStartTs format. Also supports: \"ALL\": results with both never stopped or has been stopped. \"STOPPED\": results with only stopped acquire campaigns. \"NOT_STOPPED\": results with only never stopped (means normal) acquire campaigns.",
+                        "required": false
+                    },
+                    {
+                        "name": "isComplete",
+                        "in": "query",
+                        "type": "string",
+                        "description": "If false, means maybe RL or EL not import.",
+                        "required": false
+                    },
+                    {
+                        "name": "isDraft",
+                        "in": "query",
+                        "type": "string",
+                        "description": "If true, only query campaign at \"draft\" mode.",
+                        "required": false
+                    },
+                    {
+                        "name": "acquirable",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Types of returned campaigns must be in this comma-separated list. Valid values are N (NOCODE), C (CODES), P (PERSONAL), and R (REFERRAL). sywang.20170505: disable at this moment. string types (optional); True to query acquirable conpons. If not assign or assign with empty, then would query acquirable or not acquirable coupons.",
+                        "required": false
+                    },
+                    {
+                        "name": "hasCodeList",
+                        "in": "query",
+                        "type": "string",
+                        "description": "True to query has (promo) code list conpons. If not assign or assign with empty, then would query coupons no matter with (promo) code list or not.",
+                        "required": false
+                    },
+                    {
+                        "name": "personal",
+                        "in": "query",
+                        "type": "string",
+                        "description": "True to query personal conpons. If not assign or assign with empty, then would query personal or not personal coupons.",
+                        "required": false
+                    },
+                    {
+                        "name": "recommended",
+                        "in": "query",
+                        "type": "string",
+                        "description": "True to query recommended conpons. If not assign or assign with empty, then would query recommended or not recommended coupons.",
+                        "required": false
+                    },
+                    {
+                        "name": "referral",
+                        "in": "query",
+                        "type": "string",
+                        "description": "True to query referral conpons. If not assign or assign with empty, then would query referral or not referral coupons.",
+                        "required": false
+                    },
+                    {
+                        "name": "referrerCanRedeem",
+                        "in": "query",
+                        "type": "string",
+                        "description": "True to query only referrer can redeemable conpons. If not assign or assign with empty, then would query referrer can redeem or not redeem coupons.",
+                        "required": false
+                    },
+                    {
+                        "name": "restricted",
+                        "in": "query",
+                        "type": "string",
+                        "description": "True to query restricted conpons. If not assign or assign with empty, then would query restricted or not restricted coupons.",
+                        "required": false
+                    },
+                    {
+                        "name": "sCustomField1",
+                        "in": "query",
+                        "type": "string",
+                        "description": "The returned campaigns must have a sCustomField1 that matches this value.",
+                        "required": false
+                    },
+                    {
+                        "name": "sCustomField2",
+                        "in": "query",
+                        "type": "string",
+                        "description": "The returned campaigns must have a sCustomField2 that matches this value.",
+                        "required": false
+                    },
+                    {
+                        "name": "sCustomField3",
+                        "in": "query",
+                        "type": "string",
+                        "description": "The returned campaigns must have a sCustomField3 that matches this value.",
+                        "required": false
+                    },
+                    {
+                        "name": "sCustomField4",
+                        "in": "query",
+                        "type": "string",
+                        "description": "The returned campaigns must have a sCustomField4 that matches this value.",
+                        "required": false
+                    },
+                    {
+                        "name": "sCustomField5",
+                        "in": "query",
+                        "type": "string",
+                        "description": "The returned campaigns must have a sCustomField5 that matches this value.",
+                        "required": false
+                    },
+                    {
+                        "name": "sCustomField6",
+                        "in": "query",
+                        "type": "string",
+                        "description": "The returned campaigns must have a sCustomField6 that matches this value.",
+                        "required": false
+                    },
+                    {
+                        "name": "sCustomField7",
+                        "in": "query",
+                        "type": "string",
+                        "description": "The returned campaigns must have a sCustomField7 that matches this value.",
+                        "required": false
+                    },
+                    {
+                        "name": "sCustomField8",
+                        "in": "query",
+                        "type": "string",
+                        "description": "The returned campaigns must have a sCustomField8 that matches this value.",
+                        "required": false
+                    },
+                    {
+                        "name": "sortBy",
+                        "in": "query",
+                        "type": "string",
+                        "description": "The campaigns are returned in the order specified by this comma-separated list. E.g. type,-acquireStartTs would sort the campaigns first by type in ascending order, and then by acquire start time in reverse chronological order.",
+                        "required": false
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Used for pagination. If not specified, the first page of results are returned. Otherwise, set to the value in nextOffset from the previous page. The default is 0.",
+                        "required": false
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "Maximum number of campaigns to return. The default is 20, and maximum is 100.",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/CampaignsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Campaign"
+                ],
+                "summary": "Creates a campaign. Now (2017Q2) support 9 types, see detail at https://docs.google.com/spreadsheets/d/17OekzhjhigvJ8tl5U2Qujz-IoNRXxH6PncUSlmIAgsg/edit#gid=963294009 {@required property, participantStoreIds, title, restricted, personal, acquirable, recommended, referral, referrerCanRedeem, hasCodeList, redeemLimits, RedeemConditions, redeemStartTs, redeemEndTs, DiscountRule, createdUserId, createdStoreId} {@optional draftMode, description, sourceImages, generatedCodePrefix, maxGeneratedCodes, acquireStartTs, acquireEndTs, reminderIntervals, customField1, sCustomField1, sCustomField2}",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "campaign",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Campaign"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "CREATED",
+                        "schema": {
+                            "$ref": "#/definitions/Campaign"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    }
+                }
+            }
+        },
+        "/campaigns/{campaignId}": {
+            "get": {
+                "tags": [
+                    "Campaign"
+                ],
+                "summary": "Returns a single campaign information.",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "campaignId",
+                        "in": "path",
+                        "type": "string",
+                        "description": "The campaign id.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Campaign"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Campaign"
+                ],
+                "summary": "Updates a campaign with allowed fields. It is possible to take as long as 20~30 seconds if the update is related to redeem interval.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "campaignId",
+                        "in": "path",
+                        "type": "string",
+                        "description": "The campaign id.",
+                        "required": true
+                    },
+                    {
+                        "name": "campaignUpdate",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/CampaignUpdate"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Campaign"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    }
+                }
+            }
+        },
+        "/campaigns/{campaignId}/codeList": {
+            "get": {
+                "tags": [
+                    "UserCodeListResponse"
+                ],
+                "summary": "Returns the code list. Only ```c```  field is returned if the code has not been acquired or redeemed. TODO: do we need a \"status\" here ??",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "campaignId",
+                        "in": "path",
+                        "type": "string",
+                        "description": "The campaign id.",
+                        "required": true
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "type": "string",
+                        "description": "If status is 'a', only codes that have been acquired at least once. If status is '-a', only codes that have never been acquired. If status is 'r', only codes that have been redeemed at least once. If status is '-r', only codes that have never been redeemed.",
+                        "required": false
+                    },
+                    {
+                        "name": "getDraft",
+                        "in": "query",
+                        "type": "bool",
+                        "format": "bool",
+                        "description": "Normally if the campaign is in draft, the list will be seem as empty. If this flag is set to true, will return the CL even if campaign is a draft",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/UserCodeListResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "VoidResponse"
+                ],
+                "summary": "Used to set the code list. Valid only if neither personal or referral mode is enabled. {@required data.c}",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "campaignId",
+                        "in": "path",
+                        "type": "string",
+                        "description": "The campaign id.",
+                        "required": true
+                    },
+                    {
+                        "name": "data",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/UserCodeListRequest"
+                        },
+                        "description": "The data to upload into the list.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    }
+                }
+            }
+        },
+        "/campaigns/{campaignId}/eligibleList": {
+            "get": {
+                "tags": [
+                    "UserCodeListResponse"
+                ],
+                "summary": "Returns the eligible user list. If the campaign is restricted, this endpoint returns all users in the restricted set. If the campaign is unrestricted, this endpoint returns only users that have acquired or redeemed the coupon.",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "campaignId",
+                        "in": "path",
+                        "type": "string",
+                        "description": "The campaign id.",
+                        "required": true
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "type": "string",
+                        "description": "If status is 'ALL', both users acquired and redeemed are returned. If status is 'ACQUIRED', only users who have acquired but not yet redeemed the coupon are returned. If status is 'REDEEMED', only users who have redeemed the coupon are returned.",
+                        "required": false
+                    },
+                    {
+                        "name": "getDraft",
+                        "in": "query",
+                        "type": "bool",
+                        "format": "bool",
+                        "description": "Normally if the campaign is in draft, the list will be seem as empty. If this flag is set to true, will return the EL even if campaign is a draft",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/UserCodeListResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "VoidResponse"
+                ],
+                "summary": "Used to set the eligible user list. Valid only if the campaign is restricted. If personal mode is true and generate codes is false, codes must also be included. {@required data.u} {@optional data.c}",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "campaignId",
+                        "in": "path",
+                        "type": "string",
+                        "description": "The campaign id.",
+                        "required": true
+                    },
+                    {
+                        "name": "data",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/UserCodeListRequest"
+                        },
+                        "description": "The data to upload into the list.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    }
+                }
+            }
+        },
+        "/campaigns/{campaignId}/referrerList": {
+            "get": {
+                "tags": [
+                    "UserCodeListResponse"
+                ],
+                "summary": "Returns the referrer user list.",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "campaignId",
+                        "in": "path",
+                        "type": "string",
+                        "description": "The campaign id.",
+                        "required": true
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "type": "string",
+                        "description": "If status is 'a', only referrers who's code has been acquired at least once. If status is '-a', only referrers who's code has never been acquired. If status is 'r', only referrers who's code has been redeemed at least once. If status is '-r', only referrers who's code has never been redeemed.",
+                        "required": false
+                    },
+                    {
+                        "name": "getDraft",
+                        "in": "query",
+                        "type": "bool",
+                        "format": "bool",
+                        "description": "Normally if the campaign is in draft, the list will be seem as empty. If this flag is set to true, will return the RL even if campaign is a draft",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/UserCodeListResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "VoidResponse"
+                ],
+                "summary": "Used to set the referrer user list. Valid only if referral mode is true. If generate codes is false, codes must be included. {@required data.u} {@optional data.c}",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "campaignId",
+                        "in": "path",
+                        "type": "string",
+                        "description": "The campaign id.",
+                        "required": true
+                    },
+                    {
+                        "name": "data",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/UserCodeListRequest"
+                        },
+                        "description": "The data to upload into the list.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    }
+                }
+            }
+        },
+        "/orders/{orderId}": {
+            "get": {
+                "tags": [
+                    "OrderResponse"
+                ],
+                "summary": "Returns the specified redeemed order. If an order was returned via the /return endpoint, it can still be returned by this endpoint.",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "orderId",
+                        "in": "path",
+                        "type": "string",
+                        "description": "The order id as it was specified during redemption.",
+                        "required": true
+                    },
+                    {
+                        "name": "property",
+                        "in": "query",
+                        "schema": {
+                            "$ref": "#/definitions/Property"
+                        },
+                        "description": "The orderId is unique only within a property.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/OrderResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    }
+                }
+            }
+        },
+        "/recommend": {
+            "post": {
+                "tags": [
+                    "RecommendResponse"
+                ],
+                "summary": "Returns all of the coupons that the user can use in this order. Every returned coupon will have a line id that indicates which line the coupon can be applied to. More than one coupon can have the same line id. If a coupon cannot be applied any particular line (e.g. a coupon for an iphone but there is no iphone in the order), the coupon will have the line id of the order line. \u003cbr/\u003e\u003cbr/\u003e If a coupon can be applied to more than one line, the input set of coupons will be examined and if the coupon is associated with a particular line, that line will be chosen. Otherwise, the line that gives the most discount will be chosen. If they all give the same discount, one will be chosen at random. \u003cbr/\u003e\u003cbr/\u003e If redeem is true, all the redeemable coupons in the supplied list of coupons will be redeemed. The unredeemable coupons will be ignored. {@required property, order, coupons.lineId} {@optional userId, redeem, recommendFuture, order.id, order.itemLines, order.orderLines, order.shippingLines, coupons.code, coupons.campaignId}",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/RecommendRequest"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/RecommendResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/RecommendResourceError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    }
+                }
+            }
+        },
+        "/return": {
+            "post": {
+                "tags": [
+                    "VoidResponse"
+                ],
+                "summary": "Returns coupons. If any code is already returned it will fail with 400, this is to align with the behavior of stop and break. {@required ids.orderId, property} {@optional ids.lineId} TODO: have a name here?",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/ReturnRequest"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/ReturnResourceError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    }
+                }
+            }
+        },
+        "/scheduler/{campaignId}": {
+            "get": {
+                "tags": [
+                    "VoidResponse"
+                ],
+                "summary": "Scheduler callback endpoint. THIS IS NOT A PUBLIC API.",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "campaignId",
+                        "in": "path",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "scheduleData",
+                        "in": "query",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{userId}/coupons": {
+            "get": {
+                "tags": [
+                    "CouponsResponse"
+                ],
+                "summary": "Returns a list of coupons acquired by the user. If any filter criteria are specified, all filter criteria must be true.",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "type": "string",
+                        "description": "Returned coupons are from this user.",
+                        "required": true
+                    },
+                    {
+                        "name": "property",
+                        "in": "query",
+                        "schema": {
+                            "$ref": "#/definitions/Property"
+                        },
+                        "description": "Returned coupons must have a property that matches this value.",
+                        "required": false
+                    },
+                    {
+                        "name": "storeId",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Returned coupons must have a storeId that matches one of the participant store ids.",
+                        "required": false
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Returned coupons must have the specified status.",
+                        "required": false
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "type": "string",
+                        "description": "offset for pagination, 0 if not given",
+                        "required": false
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "limit for pagination, 20 if not given",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/CouponsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "VoidResponse"
+                ],
+                "summary": "Acquires the coupon by the specified user.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "type": "string",
+                        "description": "The user id.",
+                        "required": true
+                    },
+                    {
+                        "name": "request",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/AcquireRequest"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/AcquireError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{userId}/coupons/{ccode}": {
+            "get": {
+                "tags": [
+                    "Coupon"
+                ],
+                "summary": "Returns a coupon",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "type": "string",
+                        "description": "The user id.",
+                        "required": true
+                    },
+                    {
+                        "name": "ccode",
+                        "in": "path",
+                        "type": "string",
+                        "description": "The coupon code.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Coupon"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ParsecResourceError"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "AcquireError": {
+            "properties": {
+                "status": {
+                    "description": "The status of the acquisition.",
+                    "$ref": "#/definitions/AcquireStatusCode"
+                }
+            },
+            "required": [
+                "status"
+            ]
+        },
+        "AcquireRequest": {
+            "properties": {
+                "acquire": {
+                    "type": "bool",
+                    "description": "If false, the request will not acquire the coupon but only return status on whether the coupon is acquirable. If true, the coupon will be acquired (if possible), Default value is false if not given.",
+                    "example": false
+                },
+                "campaignId": {
+                    "type": "string",
+                    "description": "The campaign id.",
+                    "example": ""
+                },
+                "code": {
+                    "type": "string",
+                    "description": "The code of the coupon to acquire. (Not yet supported)",
+                    "example": ""
+                }
+            },
+            "required": [
+                "acquire"
+            ],
+            "description": "Request to acquire a coupon. Either the campaign ID or the coupon code must be supplied."
+        },
+        "AcquireStatusCode": {
+            "type": "string",
+            "enum": [
+                "OK",
+                "ALREADY_ACQUIRED",
+                "LIMIT_EXCEEDED",
+                "TOO_EARLY",
+                "EXPIRED"
+            ]
+        },
+        "Campaign": {
+            "properties": {
+                "acquirable": {
+                    "type": "bool",
+                    "description": "If true, this coupon can be acquired.",
+                    "example": false
+                },
+                "acquireEndTs": {
+                    "type": "string",
+                    "description": "The time at which the coupon can no longer be acquired. Valid only if acquirable is true. This time must be after acquireStartTs.",
+                    "example": ""
+                },
+                "acquireStartTs": {
+                    "type": "string",
+                    "description": "The time at which the coupon can be acquired. Valid only if acquirable is true. Cannot be updated after acquireStartTs starts.",
+                    "example": ""
+                },
+                "acquireStopped": {
+                    "type": "bool",
+                    "description": "Can only be set to true if the current time is between acquireStartTs and acquireEndTs and the limit has not been reached. Once set to true, coupons can no longer be acquired and cannot be returned to false.",
+                    "example": false
+                },
+                "acquireStoppedTs": {
+                    "type": "string",
+                    "description": "The time when acquireStopped was set to true. Null if acquireStopped is false.",
+                    "example": ""
+                },
+                "acquiredTotal": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "The number of acquired coupons (system generated).",
+                    "example": 0
+                },
+                "createdStoreId": {
+                    "type": "string",
+                    "description": "The store in the property that created this campaign. This field could not be empty (means must with at least one storeId).",
+                    "example": ""
+                },
+                "createdTs": {
+                    "type": "string",
+                    "description": "The time this campaign was created (system generated).",
+                    "example": ""
+                },
+                "createdUserId": {
+                    "type": "string",
+                    "description": "The user that created this campaign.",
+                    "example": ""
+                },
+                "customField1": {
+                    "type": "string",
+                    "description": "Custom field that can be used by the property that created this campaign.",
+                    "example": ""
+                },
+                "dataCompletionStatus": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "This flag is automatically set to 0 when all the requirements of the campaign have been satisfied. For example, if restricted is true, this flag will not be 0 until the list of user id have been uploaded into the eligible list. This flag is READ-ONLY. Clients could not write this flag.",
+                    "example": 0
+                },
+                "description": {
+                    "type": "string",
+                    "description": "The description of the campaign.",
+                    "example": ""
+                },
+                "discountRule": {
+                    "description": "Describes the what the line amount will be discounted.",
+                    "$ref": "#/definitions/DiscountRule"
+                },
+                "draftMode": {
+                    "type": "bool",
+                    "description": "The campaign will not go live until this flag is false. That is, customers cannot acquire or redeem coupons until draftMode is false. Yet, all constraints still stand in draft mode, e.g. you cannot set redeemEndTs smaller than redeemStartTs. This flag cannot be set to false if the acquire start time has passed. Once this flag is false, it cannot be set to true.",
+                    "example": false
+                },
+                "generatedCodePrefix": {
+                    "type": "string",
+                    "description": "If true, the codes are automatically generated. If false, the codes must be uploaded into the campaign. bool generateCodes; Valid only if ```generateCodes``` is true. If non-blank, this string is prefixed in front of all generated codes. There are no characters inserted between this string and the generated code. Could not change from existed string to empty or from empty to string. But change an existed string to another is allowed.",
+                    "example": ""
+                },
+                "hasCodeList": {
+                    "type": "bool",
+                    "description": "If true, the campaign must with code defined, no matter upload via tuples (u,c) or auto-gen by ```generatedCodePrefix``` and ```maxGeneratedCodes```",
+                    "example": false
+                },
+                "id": {
+                    "type": "string",
+                    "description": "The system-generated campaign id.",
+                    "example": ""
+                },
+                "limits": {
+                    "description": "Describes any acquire/redemption limits on the coupons.",
+                    "$ref": "#/definitions/Limits"
+                },
+                "maxGeneratedCodes": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Valid only if generatedCodePrefix is not empty and personal is false. The specified number of codes will automatically be generated. Could be 0. When maxGeneratedCodes is updated to a non-zero value, CL bit is set to true too. But could not change from \u003e1 to 0.",
+                    "example": 0
+                },
+                "modifiedTs": {
+                    "type": "string",
+                    "description": "The time this campaign was last modified (system generated).",
+                    "example": ""
+                },
+                "outputImages": {
+                    "type": "array",
+                    "description": "The image(s) for the campaign. System-generated from ```sourceImages```.",
+                    "items": {
+                        "$ref": "#/definitions/Image"
+                    }
+                },
+                "participantStoreIds": {
+                    "type": "array",
+                    "description": "List of stored ids that are also participating in this campaign.",
+                    "items": {
+                        "type": "string",
+                        "example": ""
+                    }
+                },
+                "personal": {
+                    "type": "bool",
+                    "description": "If true, restricted will also be set to true. If generatedCodePrefix is false, when uploading into the eligible list, codes must be included.",
+                    "example": false
+                },
+                "property": {
+                    "description": "The code of the property that created this campaign. A property must on-board first and obtain via a code. The request fails if an unknown code is used. This value could not be updated by UPDATE operation.",
+                    "$ref": "#/definitions/Property"
+                },
+                "recommended": {
+                    "type": "bool",
+                    "description": "If true, this coupon will be included in the list of recommendations.",
+                    "example": false
+                },
+                "redeemConditions": {
+                    "description": "Describes the requirements for a coupon to be redeemable.",
+                    "$ref": "#/definitions/RedeemConditions"
+                },
+                "redeemEndTs": {
+                    "type": "string",
+                    "description": "The time at which the coupon can no longer be redeemed. This time must be after redeemStartTs and on or after acquireEndTs.",
+                    "example": ""
+                },
+                "redeemStartTs": {
+                    "type": "string",
+                    "description": "The time at which the coupon can be redeemed. This time must be on or after acquireStartTs. Cannot be updated after redeemStartTs starts.",
+                    "example": ""
+                },
+                "redeemStopped": {
+                    "type": "bool",
+                    "description": "Can only be set to true if the current time is between redeemStartTs and redeemEndTs. Once set to true, coupons can no longer be redeemed and cannot be returned to false.",
+                    "example": false
+                },
+                "redeemStoppedTs": {
+                    "type": "string",
+                    "description": "The time when redeemStopped was set to true. Null if redeemStopped is false.",
+                    "example": ""
+                },
+                "redeemedTotal": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "The number of redeeded coupons (system generated).",
+                    "example": 0
+                },
+                "reducedTotal": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "The total cost reduced (system generated).",
+                    "example": 0
+                },
+                "referral": {
+                    "type": "bool",
+                    "description": "If true, the coupon is for referrers to share with others. The referrer will gain some reward if the coupon is redeemed. If generatedCodePrefix is false, when uploading into the referrer list, codes must be included.",
+                    "example": false
+                },
+                "referrerCanRedeem": {
+                    "type": "bool",
+                    "description": "If true, referral must also be true. If true, the referrer can redeem her own code. The referrer will not get the referral reward if she redeems it herself.",
+                    "example": false
+                },
+                "reminderIntervals": {
+                    "type": "array",
+                    "description": "The campaign manager will be notified N minutes before the campaign ends (i.e. at redeemEndTs). Set the value of N in this list. More than one value can appear in the list, in which case the campaign manager will be notified for each value.",
+                    "items": {
+                        "type": "integer",
+                        "format": "int32",
+                        "example": 0
+                    }
+                },
+                "restricted": {
+                    "type": "bool",
+                    "description": "If true, only a fixed set of users can redeem the coupon. The campaign expects an upload user ids to the eligible list.",
+                    "example": false
+                },
+                "sCustomField1": {
+                    "type": "string",
+                    "description": "Custom field that can be used by the property that created this campaign. This field can be used in a query when fetching campaigns. This field can be updated even after redeemEndTs.",
+                    "example": ""
+                },
+                "sCustomField2": {
+                    "type": "string",
+                    "description": "Same as sCustomField1",
+                    "example": ""
+                },
+                "sCustomField3": {
+                    "type": "string",
+                    "description": "Same as sCustomField1",
+                    "example": ""
+                },
+                "sCustomField4": {
+                    "type": "string",
+                    "description": "Same as sCustomField1",
+                    "example": ""
+                },
+                "sCustomField5": {
+                    "type": "string",
+                    "description": "Same as sCustomField1",
+                    "example": ""
+                },
+                "sCustomField6": {
+                    "type": "string",
+                    "description": "Same as sCustomField1",
+                    "example": ""
+                },
+                "sCustomField7": {
+                    "type": "string",
+                    "description": "Same as sCustomField1",
+                    "example": ""
+                },
+                "sCustomField8": {
+                    "type": "string",
+                    "description": "Same as sCustomField1",
+                    "example": ""
+                },
+                "sourceImages": {
+                    "type": "array",
+                    "description": "The URLs of image(s) representing the campaign. A URL can be a data URL, that is one that contains the bytes of the image itself, rather than a URL to the location of the image. The bytes of the data URL are stored in an image store and then The data URL is replaced by a the URL in the image store. Currently only the prefix \"data:image/jpeg;base64,\" is supported",
+                    "items": {
+                        "type": "string",
+                        "example": ""
+                    }
+                },
+                "title": {
+                    "type": "string",
+                    "description": "The title of the campaign.",
+                    "example": ""
+                }
+            },
+            "required": [
+                "id",
+                "dataCompletionStatus",
+                "draftMode",
+                "property",
+                "participantStoreIds",
+                "title",
+                "description",
+                "sourceImages",
+                "outputImages",
+                "restricted",
+                "personal",
+                "referral",
+                "acquirable",
+                "recommended",
+                "referrerCanRedeem",
+                "hasCodeList",
+                "generatedCodePrefix",
+                "maxGeneratedCodes",
+                "limits",
+                "redeemConditions",
+                "acquireStartTs",
+                "acquireEndTs",
+                "acquireStopped",
+                "acquireStoppedTs",
+                "redeemStartTs",
+                "redeemEndTs",
+                "redeemStopped",
+                "redeemStoppedTs",
+                "discountRule",
+                "reminderIntervals",
+                "createdUserId",
+                "createdStoreId",
+                "createdTs",
+                "modifiedTs",
+                "acquiredTotal",
+                "redeemedTotal",
+                "reducedTotal",
+                "customField1",
+                "sCustomField1",
+                "sCustomField2",
+                "sCustomField3",
+                "sCustomField4",
+                "sCustomField5",
+                "sCustomField6",
+                "sCustomField7",
+                "sCustomField8"
+            ],
+            "description": "The resource representing a campaign. Can be updated only if draftMode is true and before acquireStartTS (if with value) or redeemStartTs."
+        },
+        "CampaignUpdate": {
+            "properties": {
+                "campaign": {
+                    "description": "Main campaign object.",
+                    "$ref": "#/definitions/Campaign"
+                },
+                "updatingFields": {
+                    "type": "array",
+                    "description": "The list of fields which are being updated. This is necessary to overcome some shortcomings with the framework since fields which are not specified are indistinguishable from an update to a null value.",
+                    "items": {
+                        "type": "string",
+                        "example": ""
+                    }
+                }
+            },
+            "required": [
+                "campaign",
+                "updatingFields"
+            ],
+            "description": "The request used to update a campaign."
+        },
+        "CampaignsResponse": {
+            "properties": {
+                "campaigns": {
+                    "type": "array",
+                    "description": "The list of campaigns that match any filter criteria.",
+                    "items": {
+                        "$ref": "#/definitions/Campaign"
+                    }
+                },
+                "nextOffset": {
+                    "type": "string",
+                    "description": "If present, can be used to fetch the next page of results. The value should be supplied to the ```offset``` parameter.",
+                    "example": ""
+                },
+                "resultsTotal": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "The total number of results regardless of pagination.",
+                    "example": 0
+                }
+            },
+            "required": [
+                "campaigns",
+                "resultsTotal",
+                "nextOffset"
+            ],
+            "description": "The response from the ```/campaigns``` endpoint."
+        },
+        "Coupon": {
+            "properties": {
+                "campaignId": {
+                    "type": "string",
+                    "description": "The campaign ID.",
+                    "example": ""
+                },
+                "code": {
+                    "type": "string",
+                    "description": "The promotion code user want to use as input.",
+                    "example": ""
+                },
+                "discount": {
+                    "type": "string",
+                    "description": "This is the minimum discount, whether the coupon is redeemable or not.\u003cbr/\u003eIf some thresholds are unreached, the discount is calculated as if the thresholds are reached.",
+                    "example": ""
+                },
+                "lineId": {
+                    "type": "string",
+                    "description": "In coupon recommendation and redemption operations, \u003cbr/\u003ethis value associates this coupon with a line in the order.",
+                    "example": ""
+                },
+                "redeemStatuses": {
+                    "type": "array",
+                    "description": "In recommend and redeem operations, this value indicates whether the coupon can be redeemed. And if not, the reason.",
+                    "items": {
+                        "$ref": "#/definitions/RedeemStatusCode"
+                    }
+                },
+                "shortQuantity": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "The number of additional units that would be needed to make the coupon redeemable and receive the discount. This is field is meaningful only when discount field has value.",
+                    "example": 0
+                },
+                "shortTotal": {
+                    "type": "string",
+                    "description": "The amount that the line total would need to increase to make the coupon redeemable and receive the discount. This is field is meaningful only when discount field has value.",
+                    "example": ""
+                }
+            },
+            "required": [
+                "lineId",
+                "redeemStatuses",
+                "shortTotal",
+                "shortQuantity",
+                "discount"
+            ],
+            "description": "This object represents a coupon from the ```/coupons``` endpoint and when getting coupon recommendations."
+        },
+        "CouponsResponse": {
+            "properties": {
+                "campaigns": {
+                    "type": "array",
+                    "description": "List of campaigns that are used by the coupons in the coupon list.",
+                    "items": {
+                        "$ref": "#/definitions/Campaign"
+                    }
+                },
+                "coupons": {
+                    "type": "array",
+                    "description": "List of coupons.",
+                    "items": {
+                        "$ref": "#/definitions/Coupon"
+                    }
+                },
+                "nextOffset": {
+                    "type": "string",
+                    "example": ""
+                },
+                "resultsTotal": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 0
+                }
+            },
+            "required": [
+                "coupons",
+                "campaigns",
+                "resultsTotal",
+                "nextOffset"
+            ],
+            "description": "Used to retrieve coupons from the ```/coupons``` endpoint and in the recommendation operation."
+        },
+        "CupidEvent": {
+            "properties": {
+                "campaignId": {
+                    "type": "string",
+                    "description": "The campaign ID affected. Not valid if type is REDEEMED_COUPONS or RETURNED_COUPONS.",
+                    "example": ""
+                },
+                "code": {
+                    "type": "string",
+                    "description": "Valid only if the type is CODE_DEACTIVATED.",
+                    "example": ""
+                },
+                "coupons": {
+                    "type": "array",
+                    "description": "Valid only if the type are REDEEMED_COUPONS, RETURNED_COUPONS.",
+                    "items": {
+                        "$ref": "#/definitions/Coupon"
+                    }
+                },
+                "dataCompletionStatus": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "The status of the campaign as it goes from draft mode to the end of the redeem period. See XXXX for how to interpret this flag. Not valid if type is REDEEMED_COUPONS or RETURNED_COUPONS.",
+                    "example": 0
+                },
+                "id": {
+                    "type": "string",
+                    "description": "A unique ID that can be used to implement idempotency.",
+                    "example": ""
+                },
+                "orderId": {
+                    "type": "string",
+                    "description": "The order ID of redeemed or returned coupons. Valid only if the type are REDEEMED_COUPONS, RETURNED_COUPONS.",
+                    "example": ""
+                },
+                "property": {
+                    "description": "The property that owns the campaign.",
+                    "$ref": "#/definitions/Property"
+                },
+                "timestamp": {
+                    "type": "string",
+                    "description": "The time this event was generated.",
+                    "example": ""
+                },
+                "type": {
+                    "description": "The event type.",
+                    "$ref": "#/definitions/CupidEventType"
+                }
+            },
+            "required": [
+                "type",
+                "id",
+                "timestamp",
+                "property",
+                "campaignId",
+                "dataCompletionStatus"
+            ],
+            "description": "The event type determines which fields are available. [Cupid Event Type and Fields](index.html#cupid-event-type-and-fields) shows each type contains what fields."
+        },
+        "CupidEventType": {
+            "type": "string",
+            "enum": [
+                "CAMPAIGN_CREATED",
+                "CAMPAIGN_UPDATED",
+                "CODE_LIST_UPLOADED",
+                "ELIGIBLE_LIST_UPLOADED",
+                "REFERRER_LIST_UPLOADED",
+                "ACQUIRE_PERIOD_STARTED",
+                "ACQUIRE_LIMIT_REACHED",
+                "ACQUIRE_PERIOD_STOPPED",
+                "ACQUIRE_PERIOD_ENDED",
+                "REDEEM_PERIOD_STARTED",
+                "REDEEM_PERIOD_STOPPED",
+                "REDEEM_PERIOD_ENDING_REMINDER",
+                "REDEEM_PERIOD_ENDED",
+                "CODE_DEACTIVATED",
+                "REDEEMED_COUPONS",
+                "RETURNED_COUPONS"
+            ]
+        },
+        "DiscountRule": {
+            "properties": {
+                "fixed": {
+                    "type": "string",
+                    "description": "The amount of the line will be reduced by this amount, set to -1 if unlimited.",
+                    "example": ""
+                },
+                "percentage": {
+                    "type": "string",
+                    "description": "The price of the line will be reduced by this percentage, set to -1 if unlimited.",
+                    "example": ""
+                },
+                "target": {
+                    "description": "The target the discount is for. For example, a campaign may be qualified with a particular item but provide discount for shipping fee. We currently only support the same as redeemconditions.linetype or shipping. (that is, no item-\u003eorder and order-\u003eitem combination)",
+                    "$ref": "#/definitions/LineType"
+                },
+                "type": {
+                    "description": "This field has no effect on the calculation of the discount. It is used by the client to help with reports. TODO: considering recommendation this field becomes Campaign.tags, which is more flexible.",
+                    "$ref": "#/definitions/DiscountRuleType"
+                }
+            },
+            "required": [
+                "fixed",
+                "percentage",
+                "type",
+                "target"
+            ],
+            "description": "This object describes how the discount is computed. If both fixed and percentage are not empty, the calculated discount will be min(fixed, total * percentage/100) Can be updated if draftMode is true."
+        },
+        "DiscountRuleType": {
+            "type": "string",
+            "enum": [
+                "FIXED_BASED",
+                "PERCENTAGE_BASED"
+            ]
+        },
+        "Image": {
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "description": "The type/profile of the image: original, resized, cropped.",
+                    "example": ""
+                },
+                "url": {
+                    "type": "string",
+                    "description": "URL of the image. Must start via http: or https:",
+                    "example": ""
+                },
+                "xy": {
+                    "type": "string",
+                    "description": "The width and height of the image in pixels. We use xy, simply because it was always like this. TODO: x_pattern=\"regexp=\\\"^[0-9]+x[0-9]+$\\\",groups=insert|update\"",
+                    "example": ""
+                }
+            },
+            "required": [
+                "url",
+                "xy",
+                "type"
+            ],
+            "description": "These are the attributes of an image."
+        },
+        "ItemLine": {
+            "properties": {
+                "attributes": {
+                    "type": "array",
+                    "description": "Used to provide additional information. These attributes will be used by the redemption condition to determine if a coupon is redeemable.",
+                    "items": {
+                        "$ref": "#/definitions/LineAttribute"
+                    }
+                },
+                "quantity": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "The number of items in this line.",
+                    "example": 0
+                },
+                "total": {
+                    "type": "string",
+                    "description": "The total cost of all the items in this line.",
+                    "example": ""
+                }
+            },
+            "required": [
+                "attributes",
+                "total",
+                "quantity"
+            ],
+            "description": "A line representing an item in an order."
+        },
+        "Limits": {
+            "properties": {
+                "perCampaign": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Specifies the maximum number of acquires/redeems in this campaign. If -1, specifies that there is no limit. The default is -1.",
+                    "example": 0
+                },
+                "perCoupon": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Specifies the maximum number of acquires/redeems per coupon. If -1, specifies that there is no limit. The default is -1.",
+                    "example": 0
+                },
+                "perUser": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Specifies the maximum number of acquires/redeems by one user. If -1, specifies that there is no limit. The default is -1.",
+                    "example": 0
+                },
+                "perUserCoupon": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Specifies the maximum number of acquires/redeems by a user may use one coupon. If -1, specifies that there is no limit. The default is -1.",
+                    "example": 0
+                }
+            },
+            "required": [
+                "perCampaign",
+                "perUser",
+                "perCoupon",
+                "perUserCoupon"
+            ],
+            "description": "This object describes the number of times the coupon can be acquired or redeemed. If the campaign has coupons that are acquirable, the limits apply to coupon acquisition. Otherwise, the campaign applies to redemption. Can be updated if draftMode is true."
+        },
+        "Line": {
+            "properties": {
+                "lineId": {
+                    "type": "string",
+                    "description": "This ID must be unique among all the lines in the order. At the time of redemption, this ID will be persisted and can later be used to return any redeemed coupons on this line.",
+                    "example": ""
+                }
+            },
+            "required": [
+                "lineId"
+            ],
+            "description": "The Line structure"
+        },
+        "LineAttribute": {
+            "properties": {
+                "key": {
+                    "type": "string",
+                    "description": "The key.",
+                    "example": ""
+                },
+                "value": {
+                    "type": "string",
+                    "description": "The value.",
+                    "example": ""
+                }
+            },
+            "required": [
+                "key",
+                "value"
+            ],
+            "description": "Used to provide additional information in a item line. These attributes will be used by the redemption condition to determine if a coupon is redeemable."
+        },
+        "LineType": {
+            "type": "string",
+            "enum": [
+                "ITEM",
+                "SHIPPING",
+                "ORDER"
+            ]
+        },
+        "Order": {
+            "properties": {
+                "deviceTags": {
+                    "type": "array",
+                    "description": "The tags associated with the customer's device. Used to determine whether a coupon is redeemable or not.",
+                    "items": {
+                        "type": "string",
+                        "example": ""
+                    }
+                },
+                "id": {
+                    "type": "string",
+                    "description": "This id is not used during recommendation. However, when coupons are being redeemed, this id with property_id must be unique among all orders since it can later be used to return the redeemed coupons in this order.",
+                    "example": ""
+                },
+                "itemLines": {
+                    "type": "array",
+                    "description": "All the item lines in the order.",
+                    "items": {
+                        "$ref": "#/definitions/ItemLine"
+                    }
+                },
+                "orderLines": {
+                    "type": "array",
+                    "description": "All the order lines in the order. Usually there is only one.",
+                    "items": {
+                        "$ref": "#/definitions/OrderLine"
+                    }
+                },
+                "shippingLines": {
+                    "type": "array",
+                    "description": "All the shipping lines in the order. There will be one for each shipping method.",
+                    "items": {
+                        "$ref": "#/definitions/ShippingLine"
+                    }
+                },
+                "userTags": {
+                    "type": "array",
+                    "description": "The tags associated with the user. Used to determine whether a coupon is redeemable or not.",
+                    "items": {
+                        "type": "string",
+                        "example": ""
+                    }
+                }
+            },
+            "required": [
+                "id",
+                "userTags",
+                "deviceTags",
+                "itemLines",
+                "shippingLines",
+                "orderLines"
+            ],
+            "description": "This object represents an order used during coupon recommendation and redemption."
+        },
+        "OrderLine": {
+            "properties": {
+                "quantity": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "The total quantity in all item lines.",
+                    "example": 0
+                },
+                "total": {
+                    "type": "string",
+                    "description": "The amount of the order after shipping and tax and before coupons are applied.",
+                    "example": ""
+                }
+            },
+            "required": [
+                "quantity",
+                "total"
+            ],
+            "description": "A line representing the order. All amounts are before any coupon discounts are applied."
+        },
+        "OrderResponse": {
+            "properties": {
+                "campaigns": {
+                    "type": "array",
+                    "description": "The list of campaigns reprepsented by the list of redeemed coupons.",
+                    "items": {
+                        "$ref": "#/definitions/Campaign"
+                    }
+                },
+                "coupons": {
+                    "type": "array",
+                    "description": "The list of coupons redeemed in this order.",
+                    "items": {
+                        "$ref": "#/definitions/Coupon"
+                    }
+                },
+                "order": {
+                    "description": "The order exactly as it was presented during redemption.",
+                    "$ref": "#/definitions/Order"
+                }
+            },
+            "required": [
+                "order",
+                "coupons",
+                "campaigns"
+            ],
+            "description": "The response from the ```/orders``` endpoint."
+        },
+        "ParsecErrorBody": {
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "detail": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ParsecErrorDetail"
+                    }
+                },
+                "message": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "message"
+            ]
+        },
+        "ParsecErrorDetail": {
+            "properties": {
+                "invalidValue": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "message"
+            ]
+        },
+        "ParsecResourceError": {
+            "properties": {
+                "error": {
+                    "$ref": "#/definitions/ParsecErrorBody"
+                }
+            },
+            "required": [
+                "error"
+            ]
+        },
+        "Property": {
+            "type": "string",
+            "enum": [
+                "AUCTION",
+                "MALL",
+                "SHOPPING",
+                "NEVEC"
+            ]
+        },
+        "RecommendErrorBody": {
+            "properties": {
+                "response": {
+                    "description": "recommend response contains error statuses of coupons, nullable.",
+                    "$ref": "#/definitions/RecommendResponse"
+                }
+            },
+            "required": [
+                "response"
+            ],
+            "description": "Recommend error response entity object, extend from ParsecErrorBody and add a field: response."
+        },
+        "RecommendRequest": {
+            "properties": {
+                "coupons": {
+                    "type": "array",
+                    "description": "If redeem is true, the coupons in this list must be redeemable or the request will fail. If redeem is false, these coupons will only be used in the case that a coupon could apply to multiple lines. In this case, if the coupon appears in this input list, it's line id will be the preferred line.",
+                    "items": {
+                        "$ref": "#/definitions/Coupon"
+                    }
+                },
+                "order": {
+                    "description": "All the lines in the order.",
+                    "$ref": "#/definitions/Order"
+                },
+                "property": {
+                    "description": "The orderId is unique only within a property.",
+                    "$ref": "#/definitions/Property"
+                },
+                "recommendFuture": {
+                    "type": "bool",
+                    "description": "if recommendFuture is true, then we recommend those not yet started campaigns too",
+                    "example": false
+                },
+                "redeem": {
+                    "type": "bool",
+                    "description": "If true, the coupons in the list will be redeemed. If true, ```userId``` must be provided.",
+                    "example": false
+                },
+                "storeId": {
+                    "type": "string",
+                    "description": "A request should come from one store.",
+                    "example": ""
+                },
+                "userId": {
+                    "type": "string",
+                    "description": "The user id or absent if the user id is not known.",
+                    "example": ""
+                }
+            },
+            "required": [
+                "property",
+                "userId",
+                "redeem",
+                "storeId",
+                "recommendFuture",
+                "order",
+                "coupons"
+            ],
+            "description": "Used to retrieve coupon recommendations."
+        },
+        "RecommendResourceError": {
+            "properties": {
+                "error": {
+                    "description": "error object",
+                    "$ref": "#/definitions/RecommendErrorBody"
+                }
+            },
+            "required": [
+                "error"
+            ],
+            "description": "This error model is designed for following EC REST API Convention (yo/ecrest)"
+        },
+        "RecommendResponse": {
+            "properties": {
+                "campaigns": {
+                    "type": "array",
+                    "description": "The list of campaigns used by the returned coupons.",
+                    "items": {
+                        "$ref": "#/definitions/Campaign"
+                    }
+                },
+                "coupons": {
+                    "type": "array",
+                    "description": "The list of recommended coupons. All coupons will have a line id matching a line id of the input order.",
+                    "items": {
+                        "$ref": "#/definitions/Coupon"
+                    }
+                },
+                "property": {
+                    "description": "The orderId is unique only within a property.",
+                    "$ref": "#/definitions/Property"
+                }
+            },
+            "required": [
+                "property",
+                "coupons",
+                "campaigns"
+            ],
+            "description": "Used to represent coupon recommendations."
+        },
+        "RedeemConditions": {
+            "properties": {
+                "desc": {
+                    "type": "string",
+                    "description": "the short description to the redeem condition (e.g., reduce 100 if total over 1,000)",
+                    "example": ""
+                },
+                "deviceTags": {
+                    "type": "array",
+                    "description": "If non-empty, the client must have one tag that matches this list of tags.",
+                    "items": {
+                        "type": "string",
+                        "example": ""
+                    }
+                },
+                "expression": {
+                    "type": "string",
+                    "description": "A json-logic expression that must evaluate to true in order for the coupon to be redeemable. If empty, the expression will not be applied.",
+                    "example": ""
+                },
+                "lineType": {
+                    "description": "The type of line in an order that this coupon can be applied to. Now supports ITEM, SHIPPING_FEE, ORDER. Cannot be updated after campaign created.",
+                    "$ref": "#/definitions/LineType"
+                },
+                "minQuantityThreshold": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "The quantity must be no less than the minimum quantity amount. If -1, specifies there is no minimum threshold. The default is -1 (means no limitation).",
+                    "example": 0
+                },
+                "minTotalThreshold": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "The total must be no less than the minimum threshold amount. If -1, specifies there is no minimum threshold. The default is -1 (means no limitation).",
+                    "example": 0
+                },
+                "shippingTypes": {
+                    "type": "array",
+                    "description": "If non-empty, the shipping line must have one tag that matches this list of tags. E.g., [1,2,3] from property, might actually means [\"7-11\", \"family\", \"OK\"]",
+                    "items": {
+                        "type": "string",
+                        "example": ""
+                    }
+                },
+                "userTags": {
+                    "type": "array",
+                    "description": "If non-empty, the user must have one tag that matches this list of tags.",
+                    "items": {
+                        "type": "string",
+                        "example": ""
+                    }
+                }
+            },
+            "required": [
+                "lineType",
+                "desc",
+                "userTags",
+                "deviceTags",
+                "shippingTypes",
+                "minTotalThreshold",
+                "minQuantityThreshold",
+                "expression"
+            ],
+            "description": "This object represents all of the criteria that must be satisfied before a coupon can be redeemed. Can be updated if draftMode is true."
+        },
+        "RedeemStatusCode": {
+            "type": "string",
+            "enum": [
+                "REDEEMED",
+                "REDEEMABLE",
+                "DURING_ACQUIRE_PERIOD",
+                "DURING_REDEEM_PERIOD",
+                "RECOMMENDED",
+                "ALREADY_REDEEMED",
+                "ORDER_LINE_ID_PAIR_REDEEMED",
+                "NOT_ACQUIRED_COUPON",
+                "USAGE_EXCEEDED",
+                "PREDATED",
+                "OUTDATED",
+                "NO_MATCHING_USER_TAG",
+                "NO_MATCHING_DEVICE_TAG",
+                "TOTAL_THRESHOLD_UNREACHED",
+                "QUANTITY_THRESHOLD_UNREACHED",
+                "DOES_NOT_MATCH_RULE",
+                "SHIPPING_LINE_NOT_MATCH",
+                "MORE_THAN_ONE_SHIPPING_DISCOUNT",
+                "MISSING_SHIPPING_FEE",
+                "DOES_NOT_MATCH_LINE_TYPE",
+                "IMPOSSIBLE_CALCULATE_DISCOUNT"
+            ]
+        },
+        "ResourceError": {
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "code",
+                "message"
+            ]
+        },
+        "ReturnErrorBody": {
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "error code",
+                    "example": 0
+                },
+                "detail": {
+                    "type": "array",
+                    "description": "error detail",
+                    "items": {
+                        "$ref": "#/definitions/ReturnId"
+                    }
+                },
+                "message": {
+                    "type": "string",
+                    "description": "error message",
+                    "example": ""
+                }
+            },
+            "required": [
+                "code",
+                "message",
+                "detail"
+            ],
+            "description": "Parsec error response entity object"
+        },
+        "ReturnId": {
+            "properties": {
+                "lineId": {
+                    "type": "string",
+                    "description": "The line ID of the line to return.",
+                    "example": ""
+                },
+                "orderId": {
+                    "type": "string",
+                    "description": "The order ID",
+                    "example": ""
+                }
+            },
+            "required": [
+                "orderId",
+                "lineId"
+            ],
+            "description": "Used to return coupons. All the coupons redeemed by the line in the order will be returned. If ```lineId``` is absent, all the coupons redeemed by the entire order will be returned."
+        },
+        "ReturnRequest": {
+            "properties": {
+                "ids": {
+                    "type": "array",
+                    "description": "Holds all the (order, line) id tuples of coupons to return.",
+                    "items": {
+                        "$ref": "#/definitions/ReturnId"
+                    }
+                },
+                "property": {
+                    "description": "The orderId is unique only within a property.",
+                    "$ref": "#/definitions/Property"
+                }
+            },
+            "required": [
+                "property",
+                "ids"
+            ],
+            "description": "Used to return coupons. In the case of a line, all the coupons associated with the line will be returned. In the case of an order, all coupons used in the order will be returned."
+        },
+        "ReturnResourceError": {
+            "properties": {
+                "error": {
+                    "description": "error object",
+                    "$ref": "#/definitions/ReturnErrorBody"
+                }
+            },
+            "required": [
+                "error"
+            ],
+            "description": "This error model is designed for following EC REST API Convention (yo/ecrest)"
+        },
+        "ShippingLine": {
+            "properties": {
+                "fee": {
+                    "type": "string",
+                    "description": "The shipping fee.",
+                    "example": ""
+                },
+                "type": {
+                    "type": "string",
+                    "description": "The type of shipping.",
+                    "example": ""
+                }
+            },
+            "required": [
+                "type",
+                "fee"
+            ],
+            "description": "A line representing the shipping cost in an order. An order may have more than one shipping line."
+        },
+        "UserCode": {
+            "properties": {
+                "c": {
+                    "type": "string",
+                    "description": "The coupon code. This field is needed if generate code is off and referral or personal are true.",
+                    "example": ""
+                },
+                "r": {
+                    "type": "string",
+                    "description": "If the value is 't', the coupon has been redeemed. If the value is 'f', the coupon has not be redeemed.",
+                    "example": ""
+                },
+                "u": {
+                    "type": "string",
+                    "description": "The user id. May not present while uploading CL.",
+                    "example": ""
+                }
+            },
+            "description": "Used when working with the eligible and referrer lists."
+        },
+        "UserCodeListRequest": {
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/UserCode"
+                    }
+                }
+            },
+            "required": [
+                "data"
+            ],
+            "description": "Used to upload data to the eligible and referrer lists."
+        },
+        "UserCodeListResponse": {
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "description": "(u,c) tuples",
+                    "items": {
+                        "$ref": "#/definitions/UserCode"
+                    }
+                }
+            },
+            "required": [
+                "data"
+            ],
+            "description": "defines (u,c) response"
+        },
+        "VoidResponse": {
+            "description": "This object is returned by endpoints that don't return results."
+        }
+    }
+}

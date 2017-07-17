@@ -26,6 +26,7 @@
                         "name": "flag",
                         "in": "body",
                         "type": "bool",
+                        "format": "bool",
                         "required": true
                     },
                     {

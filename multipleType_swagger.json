@@ -1,10 +1,10 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "The swagger API",
+        "title": "The multipleType API",
         "version": "1"
     },
-    "basePath": "/swagger/v1",
+    "basePath": "/multipleType/v1",
     "schemes": [],
     "paths": {
         "/get/{id}": {
@@ -190,13 +190,13 @@
                     "$ref": "#/definitions/Property"
                 },
                 "recommendFuture": {
-                    "type": "bool",
+                    "type": "boolean",
                     "example": false
                 },
                 "recommendFutures": {
                     "type": "array",
                     "items": {
-                        "type": "bool",
+                        "type": "boolean",
                         "example": false
                     }
                 },

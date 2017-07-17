@@ -1,25 +1,46 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "The cupid API",
+        "title": "The swagger API",
         "version": "1"
     },
-    "basePath": "/cupid/v1",
+    "basePath": "/swagger/v1",
     "schemes": [],
     "paths": {
-        "/recommend": {
+        "/get/{id}": {
             "get": {
                 "tags": [
-                    "RecommendResponse"
+                    "String"
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "string",
+                        "required": false
+                    },
+                    {
+                        "name": "flag",
+                        "in": "body",
+                        "type": "boolean",
+                        "required": true
+                    },
+                    {
+                        "name": "quantity",
+                        "in": "body",
+                        "type": "integer",
+                        "format": "int32",
+                        "required": true
+                    }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/RecommendResponse"
+                            "type": "string"
                         }
                     },
                     "400": {
@@ -61,7 +82,6 @@
             "properties": {
                 "name": {
                     "type": "string",
-                    "description": "This id is not used during recommendation. However, when coupons are being redeemed, this id with property_id must be unique among all orders since it can later be used to return the redeemed coupons in this order.",
                     "example": ""
                 }
             },
@@ -121,7 +141,22 @@
                 "NEVEC"
             ]
         },
-        "RecommendResponse": {
+        "ResourceError": {
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "code",
+                "message"
+            ]
+        },
+        "Response": {
             "properties": {
                 "num": {
                     "type": "integer",
@@ -137,7 +172,6 @@
                     }
                 },
                 "order": {
-                    "description": "All the lines in the order.",
                     "$ref": "#/definitions/Order"
                 },
                 "orders": {
@@ -153,12 +187,10 @@
                     }
                 },
                 "property": {
-                    "description": "The orderId is unique only within a property.",
                     "$ref": "#/definitions/Property"
                 },
                 "recommendFuture": {
                     "type": "bool",
-                    "description": "if recommendFuture is true, then we recommend those not yet started campaigns too",
                     "example": false
                 },
                 "recommendFutures": {
@@ -170,7 +202,6 @@
                 },
                 "userId": {
                     "type": "string",
-                    "description": "The user id or absent if the user id is not known.",
                     "example": ""
                 },
                 "userIds": {
@@ -192,21 +223,6 @@
                 "recommendFutures",
                 "num",
                 "nums"
-            ]
-        },
-        "ResourceError": {
-            "properties": {
-                "code": {
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "message": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "code",
-                "message"
             ]
         }
     }

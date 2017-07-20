@@ -1,0 +1,155 @@
+{
+    "namespace": "com.example",
+    "name": "testGet",
+    "version": 1,
+    "types": [
+        {
+            "EnumTypeDef": {
+                "type": "Enum",
+                "name": "Property",
+                "elements": [
+                    {
+                        "symbol": "AUCTION",
+                        "comment": "TW Auctions"
+                    },
+                    {
+                        "symbol": "MALL",
+                        "comment": "TW MarketPlace"
+                    },
+                    {
+                        "symbol": "SHOPPING",
+                        "comment": "TW Shopping"
+                    },
+                    {
+                        "symbol": "NEVEC",
+                        "comment": "TW NEVEC"
+                    }
+                ]
+            }
+        },
+        {
+            "StructTypeDef": {
+                "type": "Struct",
+                "name": "Order",
+                "annotations": {
+                    "x_object": ""
+                },
+                "fields": [
+                    {
+                        "name": "name",
+                        "type": "String"
+                    }
+                ]
+            }
+        },
+        {
+            "StructTypeDef": {
+                "type": "Struct",
+                "name": "Response",
+                "fields": [
+                    {
+                        "name": "respProperty",
+                        "type": "Property",
+                        "annotations": {
+                            "x_not_null": ""
+                        }
+                    },
+                    {
+                        "name": "respProperties",
+                        "type": "Array",
+                        "items": "Property"
+                    },
+                    {
+                        "name": "respUserId",
+                        "type": "String"
+                    },
+                    {
+                        "name": "respUserIds",
+                        "type": "Array",
+                        "items": "String"
+                    },
+                    {
+                        "name": "respOrder",
+                        "type": "Order",
+                        "annotations": {
+                            "x_must_validate": "",
+                            "x_not_null": ""
+                        }
+                    },
+                    {
+                        "name": "respOrders",
+                        "type": "Array",
+                        "items": "Order"
+                    },
+                    {
+                        "name": "respRecommendFuture",
+                        "type": "Bool"
+                    },
+                    {
+                        "name": "respRecommendFutures",
+                        "type": "Array",
+                        "items": "Bool"
+                    },
+                    {
+                        "name": "respNum",
+                        "type": "Int32"
+                    },
+                    {
+                        "name": "respNums",
+                        "type": "Array",
+                        "items": "Int32"
+                    }
+                ]
+            }
+        }
+    ],
+    "resources": [
+        {
+            "type": "String",
+            "method": "GET",
+            "path": "/post/{id}",
+            "inputs": [
+                {
+                    "name": "id",
+                    "type": "String",
+                    "pathParam": true,
+                    "optional": true
+                },
+                {
+                    "name": "flag",
+                    "type": "bool",
+                    "queryParam": "flag"
+                },
+                {
+                    "name": "quantity",
+                    "type": "int32",
+                    "queryParam": "quantity"
+                },
+                {
+                    "name": "wssid",
+                    "type": "int32",
+                    "header": "wssidIs"
+                }
+            ],
+            "expected": "OK",
+            "exceptions": {
+                "BAD_REQUEST": {
+                    "type": "ResourceError"
+                },
+                "FORBIDDEN": {
+                    "type": "ResourceError"
+                },
+                "INTERNAL_SERVER_ERROR": {
+                    "type": "ResourceError"
+                },
+                "NOT_FOUND": {
+                    "type": "ResourceError"
+                },
+                "UNAUTHORIZED": {
+                    "type": "ResourceError"
+                }
+            },
+            "name": "getId"
+        }
+    ]
+}

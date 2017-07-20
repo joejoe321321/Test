@@ -20,6 +20,12 @@
                 ],
                 "parameters": [
                     {
+                        "name": "WSSID-input",
+                        "in": "header",
+                        "type": "string",
+                        "required": false
+                    },
+                    {
                         "name": "id",
                         "in": "path",
                         "type": "string",
